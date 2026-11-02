@@ -25,23 +25,6 @@ The three agree to ~1e-12 on every state when fed the same noise (checked, see b
 - **Deliberately marginal airframe**: CP at 0.475 m from the nose, CG moves 0.487 → 0.460 m, so it is slightly
   *unstable* at lift-off and slightly stable at burn-out.
 
-## Run it
-
-MATLAB (headless — nothing is opened; plots are written to `results/*.png`), via the MATLAB MCP or `matlab -batch`:
-
-```matlab
-cd matlab; run_all          % build + verify Simulink, export CSVs, sweeps, Monte Carlo
-run_nominal                 % just the nominal flight
-```
-
-Python (VS Code is configured to use `.venv`):
-
-```powershell
-$env:PYTHONPATH = "python"
-.venv\Scripts\python python\scripts\compare_with_matlab.py   # needs results/*.csv from export_for_python.m
-.venv\Scripts\python python\scripts\monte_carlo.py 30
-.venv\Scripts\python -m pytest -q
-```
 
 ## Results (nominal case, seed 1)
 
@@ -64,7 +47,7 @@ $env:PYTHONPATH = "python"
 So for this vehicle timing and actuator bandwidth set the limit; the rate limit and gusts barely matter because
 the commanded gimbal motion is small and slow. Most of the gimbal travel is spare authority.
 
-## Known limitations (be upfront about these)
+## Known limitations 
 
 - **Attitude estimate is open-loop strapdown after levelling.** In powered flight the accelerometer reads thrust,
   not gravity, so it cannot correct tilt. Error stays <0.6° during boost but drifts to ~1.6° by t = 13 s (no aiding).
